@@ -1,7 +1,7 @@
 # vue-context
 
-[![npm version](https://img.shields.io/npm/v/vue-context.svg?style=for-the-badge)](https://www.npmjs.com/package/@madogai/vue-context)
-[![npm downloads](https://img.shields.io/npm/dt/vue-context.svg?style=for-the-badge)](https://www.npmjs.com/package/@madogai/vue-context)
+[![npm version](https://img.shields.io/npm/v/@madogai/vue-context.svg?style=for-the-badge)](https://www.npmjs.com/package/@madogai/vue-context)
+[![npm downloads](https://img.shields.io/npm/dt/@madogai/vue-context.svg?style=for-the-badge)](https://www.npmjs.com/package/@madogai/vue-context)
 [![VueJS version](https://img.shields.io/badge/vue.js-3.x-green.svg?style=for-the-badge)](https://vuejs.org)
 
 `vue-context` provides a simple yet flexible context menu for Vue. It is styled for the standard `<ul>` tag, but any menu template can be used.

@@ -1,5 +1,5 @@
 {
-  "name": "vue-context",
+  "name": "@madogai/vue-context",
   "version": "7.0.0",
   "description": "A simple vue context menu component.",
   "main": "src/js/index.js",
@@ -37,5 +37,9 @@
     "sass-loader": "^12.2.0",
     "vue": "^3.2.20",
     "vue-loader": "^16.8.1"
+  },
+  "directories": {
+    "doc": "docs",
+    "test": "test"
   }
 }
