@@ -1,16 +1,8 @@
-# Attention:
-
-I no longer have the ability or interest in maintaining this package since I am not using Vue in any of my projects
-anymore, so I am abandoning `vue-context`. If your project depends on vue-context, please feel free to fork and maintain
-the package yourself, or use an [alternative context menu package](#alternatives).
-
 # vue-context
 
-[![npm version](https://img.shields.io/npm/v/vue-context.svg?style=for-the-badge)](https://www.npmjs.com/package/vue-context)
-[![npm downloads](https://img.shields.io/npm/dt/vue-context.svg?style=for-the-badge)](https://www.npmjs.com/package/vue-context)
-[![GitHub issues](https://img.shields.io/github/issues/rawilk/vue-context.svg?style=for-the-badge)](https://github.com/rawilk/vue-context/issues)
-[![GitHub stars](https://img.shields.io/github/stars/rawilk/vue-context.svg?style=for-the-badge)](https://github.com/rawilk/vue-context/stargazers)
-[![VueJS version](https://img.shields.io/badge/vue.js-2.x-green.svg?style=for-the-badge)](https://vuejs.org)
+[![npm version](https://img.shields.io/npm/v/vue-context.svg?style=for-the-badge)](https://www.npmjs.com/package/@madogai/vue-context)
+[![npm downloads](https://img.shields.io/npm/dt/vue-context.svg?style=for-the-badge)](https://www.npmjs.com/package/@madogai/vue-context)
+[![VueJS version](https://img.shields.io/badge/vue.js-3.x-green.svg?style=for-the-badge)](https://vuejs.org)
 
 `vue-context` provides a simple yet flexible context menu for Vue. It is styled for the standard `<ul>` tag, but any menu template can be used.
 The menu is lightweight with its only dependency being `vue-clickaway`. The menu has some basic styles applied to it, but they can be easily 
@@ -29,7 +21,7 @@ your project.
 
 Using npm:
 ```bash
-npm i vue-context
+npm i @madogai/vue-context
 ```
 
 ## Basic Usage
@@ -37,10 +29,10 @@ npm i vue-context
 Import the component and use it in your app.
 
 ```js
-import Vue from 'vue';
-import VueContext from 'vue-context';
+import { createApp } from 'vue';
+import VueContext from '@madogai/vue-context';
 
-new Vue({
+createApp({
     components: {
         VueContext
     },
@@ -50,7 +42,7 @@ new Vue({
             alert(`You clicked ${text}!`);
         }
     }
-}).$mount('#app');
+}).mount('#app');
 ```
 
 Next add an element to the page that will trigger the context menu to appear, and also add the context menu to the page.
@@ -100,6 +92,7 @@ This project exists thanks to all the people who contribute. [[Contribute]](CONT
 - [wol-soft](https://github.com/wol-soft)
 - [nachodd](https://github.com/nachodd)
 - [Nberezhnoy](https://github.com/Nberezhnoy)
+- [madogai](https://github.com/madguy)
 
 ## Alternatives
 

@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented here.
 
+<a name="7.0.0"></a>
+## [7.0.0](https://github.com/madguy/vue-context/releases/7.0.0)
+
+Released 2021-10-15
+
+### Changed
+- Migrate to vue3
+
+### Updated
+- Update dev dependencies.
+
 <a name="6.0.0"></a>
 ## [6.0.0](https://github.com/rawilk/vue-context/releases/6.0.0)
 
