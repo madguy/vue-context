@@ -1,4 +1,5 @@
-import { directive as onClickaway } from 'vue-clickaway/index';
+import { h, resolveDirective, withDirectives, vShow } from 'vue'
+import { directive as onClickAway } from 'vue3-click-away';
 import {
     eventOff,
     eventOn,
@@ -14,7 +15,7 @@ import { normalizeSlot } from './normalize-slot';
 
 export default {
     directives: {
-        onClickaway
+        onClickAway
     },
 
     props: {
@@ -87,7 +88,7 @@ export default {
         this.localItemSelector = this.mapItemSelector(this.itemSelector);
     },
 
-    beforeDestroy() {
+    beforeUnmount() {
         if (this.closeOnScroll) {
             this.removeScrollEventListener();
         }
@@ -108,7 +109,7 @@ export default {
         },
 
         close() {
-            if (! this.show) {
+            if (!this.show) {
                 return;
             }
 
@@ -133,7 +134,7 @@ export default {
         },
 
         focusNext(event, up) {
-            if (! this.show) {
+            if (!this.show) {
                 return;
             }
 
@@ -149,7 +150,7 @@ export default {
                 let index = items.indexOf(event.target);
                 if (up && index > 0) {
                     index--;
-                } else if (! up && index < items.length - 1) {
+                } else if (!up && index < items.length - 1) {
                     index++;
                 }
 
@@ -355,56 +356,40 @@ export default {
         }
     },
 
-    render(h) {
-        if (this.lazy && ! this.show) {
-            return h(false);
+    render() {
+        if (this.lazy && !this.show) {
+            return h(null);
         }
 
         // Only register the events we need
-        const on = {
-            // `!` modifier for capture
-            '!contextmenu': e => {
-                e.preventDefault();
-            },
-            keydown: this.onKeydown // up, down, esc
+        const events = {
+            onKeydown: this.onKeydown // up, down, esc
         };
 
         if (this.closeOnClick) {
-            on.click = this.onClick;
+            events.onClick = this.onClick;
         }
 
         // Only register the directives we need
         const directives = [
-            {
-                name: 'on-clickaway',
-                value: this.close,
-                rawName: 'v-on-clickaway'
-            }
+            [resolveDirective('on-click-away'), this.close]
         ];
 
-        if (! this.lazy) {
-            directives.push({
-                name: 'show',
-                value: this.show,
-                rawName: 'v-show',
-                expression: 'show'
-            });
+        if (!this.lazy) {
+            directives.push([vShow, this.show]);
         }
 
-        return h(
+        return withDirectives(h(
             this.tag,
             {
-                staticClass: 'v-context',
+                class: 'v-context',
                 style: this.style,
-                attrs: {
-                    tabindex: '-1',
-                    role: this.role,
-                    'aria-hidden': this.lazy ? null : String(! this.show)
-                },
-                on,
-                directives
+                tabindex: '-1',
+                role: this.role,
+                'aria-hidden': this.lazy ? null : String(!this.show),
+                ...events,
             },
-            [normalizeSlot('default', { data: this.data }, this.$scopedSlots, this.$slots)]
-        );
+            [normalizeSlot('default', { data: this.data }, this.$slots)]
+        ), directives);
     }
 };

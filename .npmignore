@@ -1,6 +1,7 @@
 test/
 build/
 .idea
+hot
 **/mix-manifest.json
 .github/
 CODE_OF_CONDUCT.md

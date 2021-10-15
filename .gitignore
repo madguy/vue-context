@@ -1,5 +1,6 @@
 node_modules/
 .idea
+hot
 npm-debug.log*
 **/mix-manifest.json
 test/js/dist/
