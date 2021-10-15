@@ -1,6 +1,6 @@
 {
   "name": "vue-context",
-  "version": "6.0.0",
+  "version": "7.0.0",
   "description": "A simple vue context menu component.",
   "main": "src/js/index.js",
   "scripts": {
@@ -10,19 +10,18 @@
     "production": "mix --production --mix-config=build/webpack.mix.js"
   },
   "keywords": [
-    "Vue",
-    "Vue2",
+    "Vue3",
     "context",
     "context menu"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rawilk/vue-context.git"
+    "url": "git+https://github.com/madguy/vue-context.git"
   },
-  "author": "Randall Wilk <randall@randallwilk.com>",
+  "author": "madogai <madguy@drumcan.in>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rawilk/vue-context/issues"
+    "url": "https://github.com/madguy/vue-context/issues"
   },
   "homepage": "https://vue-context.com/docs",
   "dependencies": {
