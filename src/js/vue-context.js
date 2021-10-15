@@ -1,4 +1,4 @@
-import { h, resolveDirective, withDirectives, vShow } from 'vue'
+import { h, resolveDirective, withDirectives, vShow } from 'vue';
 import { directive as onClickAway } from 'vue3-click-away';
 import {
     eventOff,
@@ -9,68 +9,66 @@ import {
     selectAll,
     setAttr,
     getBCR,
-    parentElementByClassName
+    parentElementByClassName,
 } from './utils';
 import { normalizeSlot } from './normalize-slot';
 
 export default {
     directives: {
-        onClickAway
+        onClickAway,
     },
 
     props: {
         closeOnClick: {
             type: Boolean,
-            default: true
+            default: true,
         },
         closeOnScroll: {
             type: Boolean,
-            default: true
+            default: true,
         },
         lazy: {
             type: Boolean,
-            default: false
+            default: false,
         },
         itemSelector: {
             type: [String, Array],
-            default: () => ['.v-context-item', '.v-context > li > a']
+            default: () => ['.v-context-item', '.v-context > li > a'],
         },
         role: {
             type: String,
-            default: 'menu'
+            default: 'menu',
         },
         subMenuOffset: {
             type: Number,
-            default: 10
+            default: 10,
         },
         useScrollHeight: {
             type: Boolean,
-            default: false
+            default: false,
         },
         useScrollWidth: {
             type: Boolean,
-            default: false
+            default: false,
         },
         heightOffset: {
             type: Number,
-            default: 25
+            default: 25,
         },
         widthOffset: {
             type: Number,
-            default: 25
+            default: 25,
         },
         tag: {
             type: String,
-            default: 'ul'
-        }
+            default: 'ul',
+        },
     },
 
     computed: {
         style() {
-            return this.show
-                ? { top: `${this.top}px`, left: `${this.left}px` }
-                : null;
-        }
+            return this.show ? { top: `${this.top}px`, left: `${this.left}px` } : null;
+        },
     },
 
     data() {
@@ -80,7 +78,7 @@ export default {
             show: false,
             data: null,
             localItemSelector: '',
-            activeSubMenu: null
+            activeSubMenu: null,
         };
     },
 
@@ -100,12 +98,10 @@ export default {
         },
 
         addHoverEventListener(element) {
-            element.querySelectorAll('.v-context__sub').forEach(
-                subMenuNode => {
-                    eventOn(subMenuNode, 'mouseenter', this.openSubMenu);
-                    eventOn(subMenuNode, 'mouseleave', this.closeSubMenu);
-                }
-            );
+            element.querySelectorAll('.v-context__sub').forEach((subMenuNode) => {
+                eventOn(subMenuNode, 'mouseenter', this.openSubMenu);
+                eventOn(subMenuNode, 'mouseleave', this.closeSubMenu);
+            });
         },
 
         close() {
@@ -169,9 +165,7 @@ export default {
 
         mapItemSelector(itemSelector) {
             if (isArray(itemSelector)) {
-                itemSelector = itemSelector
-                    .map(selector => `${selector}:not(.disabled):not([disabled])`)
-                    .join(', ');
+                itemSelector = itemSelector.map((selector) => `${selector}:not(.disabled):not([disabled])`).join(', ');
             }
 
             return itemSelector;
@@ -211,7 +205,7 @@ export default {
                 parentMenu.dispatchEvent(new Event('mouseleave'));
 
                 const items = this.getItems(),
-                      index = items.indexOf(parentMenu.getElementsByTagName('a')[0]);
+                    index = items.indexOf(parentMenu.getElementsByTagName('a')[0]);
 
                 this.focusItem(index, items);
             }
@@ -238,17 +232,19 @@ export default {
 
         openSubMenu(event) {
             const subMenuElement = this.getSubMenuElementByEvent(event),
-                  parentMenu = parentElementByClassName(subMenuElement.parentElement, 'v-context'),
-                  bcr = getBCR(event.target);
+                parentMenu = parentElementByClassName(subMenuElement.parentElement, 'v-context'),
+                bcr = getBCR(event.target);
 
             // check if another sub menu is open. In this case make sure no other as well as no nested sub menu is open
             if (this.activeSubMenu !== parentMenu) {
-                while (this.activeSubMenu !== null
-                    && this.activeSubMenu !== parentMenu
-                    && this.activeSubMenu !== subMenuElement
+                while (
+                    this.activeSubMenu !== null &&
+                    this.activeSubMenu !== parentMenu &&
+                    this.activeSubMenu !== subMenuElement
                 ) {
-                    parentElementByClassName(this.activeSubMenu, 'v-context__sub')
-                        .dispatchEvent(new Event('mouseleave'));
+                    parentElementByClassName(this.activeSubMenu, 'v-context__sub').dispatchEvent(
+                        new Event('mouseleave')
+                    );
                 }
             }
 
@@ -265,26 +261,26 @@ export default {
 
         closeSubMenu(event) {
             const subMenuElement = this.getSubMenuElementByEvent(event),
-                  parentMenu = parentElementByClassName(subMenuElement, 'v-context');
+                parentMenu = parentElementByClassName(subMenuElement, 'v-context');
 
             // if a sub menu is closed and it's not the currently active sub menu (eg. a lowe layered sub menu closed
             // by a mouseleave event) close all nested sub menus
             if (this.activeSubMenu !== subMenuElement) {
                 while (this.activeSubMenu !== null && this.activeSubMenu !== subMenuElement) {
-                    parentElementByClassName(this.activeSubMenu, 'v-context__sub')
-                        .dispatchEvent(new Event('mouseleave'));
+                    parentElementByClassName(this.activeSubMenu, 'v-context__sub').dispatchEvent(
+                        new Event('mouseleave')
+                    );
                 }
             }
 
             subMenuElement.style.display = 'none';
 
             // check if a parent menu exists and the parent menu is a sub menu to keep track of the correct sub menu
-            this.activeSubMenu = parentMenu && parentElementByClassName(parentMenu, 'v-context__sub')
-                ? parentMenu
-                : null;
+            this.activeSubMenu =
+                parentMenu && parentElementByClassName(parentMenu, 'v-context__sub') ? parentMenu : null;
         },
 
-        getSubMenuElementByEvent (event) {
+        getSubMenuElementByEvent(event) {
             return event.target.getElementsByTagName('ul')[0];
         },
 
@@ -311,12 +307,10 @@ export default {
         },
 
         removeHoverEventListener(element) {
-            element.querySelectorAll('.v-context__sub').forEach(
-                (subMenuNode) => {
-                    eventOff(subMenuNode, 'mouseenter', this.openSubMenu);
-                    eventOff(subMenuNode, 'mouseleave', this.closeSubMenu);
-                }
-            );
+            element.querySelectorAll('.v-context__sub').forEach((subMenuNode) => {
+                eventOff(subMenuNode, 'mouseenter', this.openSubMenu);
+                eventOff(subMenuNode, 'mouseleave', this.closeSubMenu);
+            });
         },
 
         resetData() {
@@ -328,12 +322,11 @@ export default {
 
         setItemRoles() {
             // Add role="menuitem" and tabindex="-1" to all items
-            selectAll(this.localItemSelector, this.$el)
-                .forEach(el => {
-                    setAttr(el, 'role', 'menuitem');
-                    setAttr(el, 'tabindex', '-1');
-                });
-        }
+            selectAll(this.localItemSelector, this.$el).forEach((el) => {
+                setAttr(el, 'role', 'menuitem');
+                setAttr(el, 'tabindex', '-1');
+            });
+        },
     },
 
     watch: {
@@ -353,7 +346,7 @@ export default {
             if (selector !== oldValue) {
                 this.localItemSelector = this.mapItemSelector(selector);
             }
-        }
+        },
     },
 
     render() {
@@ -363,7 +356,7 @@ export default {
 
         // Only register the events we need
         const events = {
-            onKeydown: this.onKeydown // up, down, esc
+            onKeydown: this.onKeydown, // up, down, esc
         };
 
         if (this.closeOnClick) {
@@ -371,25 +364,26 @@ export default {
         }
 
         // Only register the directives we need
-        const directives = [
-            [resolveDirective('on-click-away'), this.close]
-        ];
+        const directives = [[resolveDirective('on-click-away'), this.close]];
 
         if (!this.lazy) {
             directives.push([vShow, this.show]);
         }
 
-        return withDirectives(h(
-            this.tag,
-            {
-                class: 'v-context',
-                style: this.style,
-                tabindex: '-1',
-                role: this.role,
-                'aria-hidden': this.lazy ? null : String(!this.show),
-                ...events,
-            },
-            [normalizeSlot('default', { data: this.data }, this.$slots)]
-        ), directives);
-    }
+        return withDirectives(
+            h(
+                this.tag,
+                {
+                    class: 'v-context',
+                    style: this.style,
+                    tabindex: '-1',
+                    role: this.role,
+                    'aria-hidden': this.lazy ? null : String(!this.show),
+                    ...events,
+                },
+                [normalizeSlot('default', { data: this.data }, this.$slots)]
+            ),
+            directives
+        );
+    },
 };

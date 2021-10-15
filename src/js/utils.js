@@ -1,13 +1,13 @@
-if (! Array.from) {
-    Array.from = object => {
+if (!Array.from) {
+    Array.from = (object) => {
         'use strict';
 
         return [].slice.call(object);
     };
 }
 
-if (! Array.isArray) {
-    Array.isArray = arg => Object.prototype.toString.call(arg) === '[object Array]';
+if (!Array.isArray) {
+    Array.isArray = (arg) => Object.prototype.toString.call(arg) === '[object Array]';
 }
 
 // --- Constants ---
@@ -20,14 +20,14 @@ export const keyCodes = {
     LEFT: 37,
     UP: 38,
     RIGHT: 39,
-    DOWN: 40
+    DOWN: 40,
 };
 
 // --- Dom Utils ---
 
 // Returns true if the parent element contains the child element
 const contains = (parent, child) => {
-    if (! parent || typeof parent.contains !== 'function') {
+    if (!parent || typeof parent.contains !== 'function') {
         return false;
     }
 
@@ -49,18 +49,18 @@ export const eventOff = (el, eventName, handler) => {
 };
 
 // Filter visible elements
-export const filterVisible = elements => (elements || []).filter(isVisible);
+export const filterVisible = (elements) => (elements || []).filter(isVisible);
 
 // Return the Bounding Client Rect of an element
 // Returns `null` if not an element
-export const getBCR = el => (isElement(el) ? el.getBoundingClientRect() : null);
+export const getBCR = (el) => (isElement(el) ? el.getBoundingClientRect() : null);
 
 // Determine if an element is an HTML element
-const isElement = el => Boolean(el && el.nodeType === Node.ELEMENT_NODE);
+const isElement = (el) => Boolean(el && el.nodeType === Node.ELEMENT_NODE);
 
 // Determine if an HTML element is visible - Faster than CSS check
-const isVisible = el => {
-    if (! isElement(el) || ! contains(document.body, el)) {
+const isVisible = (el) => {
+    if (!isElement(el) || !contains(document.body, el)) {
         return false;
     }
 
@@ -74,8 +74,7 @@ const isVisible = el => {
 };
 
 // Select all elements matching a selector. Returns `[]` if none found
-export const selectAll = (selector, root) =>
-    arrayFrom((isElement(root) ? root : document).querySelectorAll(selector));
+export const selectAll = (selector, root) => arrayFrom((isElement(root) ? root : document).querySelectorAll(selector));
 
 // Set an attribute on an element
 export const setAttr = (el, attr, value) => {

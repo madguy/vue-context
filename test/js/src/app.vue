@@ -1,7 +1,9 @@
 <template>
     <div class="container py-3 mt-5">
         <ul class="list-group">
-            <li v-for="(item, index) in items" :key="index"
+            <li
+                v-for="(item, index) in items"
+                :key="index"
                 class="list-group-item"
                 @contextmenu.prevent="$refs.menu.open"
             >
@@ -12,69 +14,41 @@
         <vue-context ref="menu" @close="onClose">
             <template #default="child">
                 <li tabindex="0">
-                    <a href="#" class="v-context-item"
-                       @click.prevent="onClick('item 1')"
-                    >
-                        Do something
-                    </a>
+                    <a href="#" class="v-context-item" @click.prevent="onClick('item 1')"> Do something </a>
                 </li>
                 <li class="v-context__sub">
-                    <a href="#" class="v-context-item"
-                       @click.prevent="onClick('item 2')"
-                    >
-                        Do something else
-                    </a>
+                    <a href="#" class="v-context-item" @click.prevent="onClick('item 2')"> Do something else </a>
                     <ul class="v-context">
                         <li tabindex="0">
-                            <a href="#" class="v-context-item"
-                               @click.prevent="onClick('sub item 1')"
-                            >
-                                Submenu
-                            </a>
+                            <a href="#" class="v-context-item" @click.prevent="onClick('sub item 1')"> Submenu </a>
                         </li>
                         <li class="v-context__sub">
-                            <a href="#" class="v-context-item"
-                               @click.prevent="onClick('sub item 2')"
-                            >
-                                Submenu next
-                            </a>
+                            <a href="#" class="v-context-item" @click.prevent="onClick('sub item 2')"> Submenu next </a>
 
                             <ul class="v-context">
                                 <li tabindex="0">
-                                    <a href="#" class="v-context-item"
-                                       @click.prevent="onClick('sub sub item 1')"
-                                    >
+                                    <a href="#" class="v-context-item" @click.prevent="onClick('sub sub item 1')">
                                         We need to go deeper
                                     </a>
                                 </li>
                                 <li tabindex="0">
-                                    <a href="#" class="v-context-item"
-                                       @click.prevent="onClick('sub sub item 2')"
-                                    >
+                                    <a href="#" class="v-context-item" @click.prevent="onClick('sub sub item 2')">
                                         double nested Submenu
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            <a href="#" class="v-context-item"
-                               @click.prevent="onClick('sub item 3')"
-                            >
-                                Submenu next
-                            </a>
+                            <a href="#" class="v-context-item" @click.prevent="onClick('sub item 3')"> Submenu next </a>
                         </li>
                         <li class="v-context__sub">
-                            <a href="#" class="v-context-item"
-                               @click.prevent="onClick('sub item 4')"
-                            >
+                            <a href="#" class="v-context-item" @click.prevent="onClick('sub item 4')">
                                 second nested Submenu
                             </a>
 
                             <ul class="v-context">
                                 <li tabindex="0">
-                                    <a href="#" class="v-context-item"
-                                       @click.prevent="onClick('sub sub item 3')"
-                                    >
+                                    <a href="#" class="v-context-item" @click.prevent="onClick('sub sub item 3')">
                                         sub sub
                                     </a>
                                 </li>
@@ -83,11 +57,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#" class="v-context-item"
-                       @click.prevent="onClick('item 3')"
-                    >
-                        Another option
-                    </a>
+                    <a href="#" class="v-context-item" @click.prevent="onClick('item 3')"> Another option </a>
                 </li>
             </template>
         </vue-context>
@@ -95,11 +65,11 @@
 </template>
 
 <script>
-import VueContext from "../../../src/js/vue-context";
+import VueContext from '../../../src/js/vue-context';
 
 export default {
     components: {
-        VueContext
+        VueContext,
     },
 
     data() {
@@ -112,14 +82,14 @@ export default {
                 'Dapibus ac facilisis in',
                 'Morbi leo risus',
                 'Porta ac consectetur ac',
-                'Vestibulum at eros'
-            ]
-        }
+                'Vestibulum at eros',
+            ],
+        };
     },
 
     methods: {
-        onClick (text) {
-            console.log(text)
+        onClick(text) {
+            console.log(text);
         },
 
         onClose() {
@@ -130,12 +100,12 @@ export default {
             if (!el) {
                 return;
             }
-            this.menuRefs.push(el)
+            this.menuRefs.push(el);
         },
     },
-}
+};
 </script>
 
 <style lang="scss" scoped>
-    @use '../../../src/sass/vue-context' as *;
+@use '../../../src/sass/vue-context' as *;
 </style>
