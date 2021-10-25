@@ -1,6 +1,6 @@
 {
   "name": "@madogai/vue-context",
-  "version": "7.0.0",
+  "version": "7.0.1",
   "description": "A simple vue context menu component.",
   "main": "src/js/index.js",
   "scripts": {
