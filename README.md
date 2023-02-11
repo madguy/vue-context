@@ -72,10 +72,10 @@ Next add an element to the page that will trigger the context menu to appear, an
 > You will need to manually import them now in your own stylesheets.
 
 ```bash
-@import '~vue-context/dist/css/vue-context.css';
+@import '~@madogai/vue-context/dist/css/vue-context.css';
 
 // Or
-@import '~vue-context/src/sass/vue-context';
+@import '~@madogai/vue-context/src/sass/vue-context';
 ```
 
 ## Documentation
