@@ -1,8 +1,25 @@
+<template>
+  <component
+    :is="tag"
+    v-if="show || !lazy"
+    v-show="show"
+    v-on-click-away="close"
+    class="v-context"
+    :style="style"
+    tabindex="-1"
+    :role="role"
+    :aria-hidden="areaHidden"
+    @keydown="onKeydown"
+    @click="onClick"
+  >
+    <slot :data="data" />
+  </component>
+</template>
+
 <script lang="ts">
-import { defineComponent, h, resolveDirective, withDirectives, vShow } from 'vue';
+import { defineComponent } from 'vue';
 import { directive as onClickAway } from 'vue3-click-away';
 import { KEYS, isVisibleFilter, parentElementByClassName } from '@/modules/utils';
-import { normalizeSlot } from '@/modules/normalize-slot';
 import type { PropType } from 'vue';
 
 export default defineComponent({
@@ -69,7 +86,7 @@ export default defineComponent({
       top: 0,
       left: 0,
       show: false,
-      data: null,
+      data: {},
       localItemSelector: '',
       activeSubMenu: null,
     };
@@ -78,6 +95,9 @@ export default defineComponent({
   computed: {
     style() {
       return this.show ? { top: `${this.top}px`, left: `${this.left}px` } : null;
+    },
+    areaHidden() {
+      return this.lazy ? null : String(!this.show);
     },
   },
 
@@ -141,7 +161,7 @@ export default defineComponent({
       event.preventDefault();
       event.stopPropagation();
 
-      await new Promise((resolve) => this.$nextTick(() => resolve(true)));
+      await this.$nextTick();
 
       const items = this.getItems();
       if (items.length < 1) {
@@ -178,6 +198,9 @@ export default defineComponent({
     },
 
     onClick() {
+      if (this.closeOnClick === false) {
+        return;
+      }
       this.close();
     },
 
@@ -347,7 +370,7 @@ export default defineComponent({
     resetData() {
       this.top = 0;
       this.left = 0;
-      this.data = null;
+      this.data = {};
       this.show = false;
     },
 
@@ -378,45 +401,6 @@ export default defineComponent({
         this.localItemSelector = this.mapItemSelector(selector);
       }
     },
-  },
-
-  render() {
-    if (this.lazy && !this.show) {
-      return;
-    }
-
-    // Only register the events we need
-    const events = {
-      onKeydown: this.onKeydown, // up, down, esc
-      onClick: () => {},
-    };
-
-    if (this.closeOnClick) {
-      events.onClick = this.onClick;
-    }
-
-    // Only register the directives we need
-    const directives: any[] = [[resolveDirective('on-click-away'), this.close]];
-
-    if (!this.lazy) {
-      directives.push([vShow, this.show]);
-    }
-
-    return withDirectives(
-      h(
-        this.tag,
-        {
-          class: 'v-context',
-          style: this.style,
-          tabindex: '-1',
-          role: this.role,
-          'aria-hidden': this.lazy ? null : String(!this.show),
-          ...events,
-        },
-        [normalizeSlot('default', { data: this.data ?? {} }, this.$slots)]
-      ),
-      directives
-    );
   },
 });
 </script>

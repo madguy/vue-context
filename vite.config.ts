@@ -14,7 +14,7 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: 'src/main.ts',
+      entry: 'src/vue-context.vue',
       name: 'vue-context',
     },
     minify: true,
