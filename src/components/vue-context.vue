@@ -225,7 +225,7 @@ export default defineComponent({
       }
     },
 
-    open(event: MouseEvent, data: any) {
+    open(event: MouseEvent, data: any = {}) {
       this.data = data;
       this.show = true;
 
@@ -413,7 +413,7 @@ export default defineComponent({
           'aria-hidden': this.lazy ? null : String(!this.show),
           ...events,
         },
-        [normalizeSlot('default', { data: this.data }, this.$slots)]
+        [normalizeSlot('default', { data: this.data ?? {} }, this.$slots)]
       ),
       directives
     );

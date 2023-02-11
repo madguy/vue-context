@@ -1,6 +1,6 @@
 {
   "name": "@madogai/vue-context",
-  "version": "8.0.3",
+  "version": "8.0.4",
   "description": "A simple vue context menu component.",
   "type": "module",
   "files": [
