@@ -16,8 +16,8 @@ function openContextMenu(e: MouseEvent) {
   menu.value?.open(e, { x: 10, y: 20 });
 }
 
-function onClick(text: string) {
-  console.log(text);
+function onClick(text: string, payload: any) {
+  console.log(text, payload);
 }
 
 function onClose() {
@@ -35,46 +35,52 @@ function onClose() {
     </ul>
 
     <vue-context ref="menu" @close="onClose">
-      <li tabindex="0">
-        <a href="#" class="v-context-item" @click.prevent="onClick('item 1')"> Do something </a>
-      </li>
-      <li class="v-context__sub">
-        <a href="#" class="v-context-item" @click.prevent="onClick('item 2')"> Do something else </a>
-        <ul class="v-context">
-          <li tabindex="0">
-            <a href="#" class="v-context-item" @click.prevent="onClick('sub item 1')"> Submenu </a>
-          </li>
-          <li class="v-context__sub">
-            <a href="#" class="v-context-item" @click.prevent="onClick('sub item 2')"> Submenu next </a>
+      <template #default="{ data }: { data: any }">
+        <li tabindex="0">
+          <a href="#" class="v-context-item" @click.prevent="onClick('item 1', data)"> Do something </a>
+        </li>
+        <li class="v-context__sub">
+          <a href="#" class="v-context-item" @click.prevent="onClick('item 2', data)"> Do something else </a>
+          <ul class="v-context">
+            <li tabindex="0">
+              <a href="#" class="v-context-item" @click.prevent="onClick('sub item 1', data)"> Submenu </a>
+            </li>
+            <li class="v-context__sub">
+              <a href="#" class="v-context-item" @click.prevent="onClick('sub item 2', data)"> Submenu next </a>
 
-            <ul class="v-context">
-              <li tabindex="0">
-                <a href="#" class="v-context-item" @click.prevent="onClick('sub sub item 1')"> We need to go deeper </a>
-              </li>
-              <li tabindex="0">
-                <a href="#" class="v-context-item" @click.prevent="onClick('sub sub item 2')">
-                  double nested Submenu
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href="#" class="v-context-item" @click.prevent="onClick('sub item 3')"> Submenu next </a>
-          </li>
-          <li class="v-context__sub">
-            <a href="#" class="v-context-item" @click.prevent="onClick('sub item 4')"> second nested Submenu </a>
+              <ul class="v-context">
+                <li tabindex="0">
+                  <a href="#" class="v-context-item" @click.prevent="onClick('sub sub item 1', data)">
+                    We need to go deeper
+                  </a>
+                </li>
+                <li tabindex="0">
+                  <a href="#" class="v-context-item" @click.prevent="onClick('sub sub item 2', data)">
+                    double nested Submenu
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#" class="v-context-item" @click.prevent="onClick('sub item 3', data)"> Submenu next </a>
+            </li>
+            <li class="v-context__sub">
+              <a href="#" class="v-context-item" @click.prevent="onClick('sub item 4', data)">
+                second nested Submenu
+              </a>
 
-            <ul class="v-context">
-              <li tabindex="0">
-                <a href="#" class="v-context-item" @click.prevent="onClick('sub sub item 3')"> sub sub </a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="#" class="v-context-item" @click.prevent="onClick('item 3')"> Another option </a>
-      </li>
+              <ul class="v-context">
+                <li tabindex="0">
+                  <a href="#" class="v-context-item" @click.prevent="onClick('sub sub item 3', data)"> sub sub </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#" class="v-context-item" @click.prevent="onClick('item 3', data)"> Another option </a>
+        </li>
+      </template>
     </vue-context>
   </div>
 </template>

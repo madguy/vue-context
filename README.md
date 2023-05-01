@@ -50,20 +50,20 @@ Next add an element to the page that will trigger the context menu to appear, an
 ```html
 <div id="app">
 
-    <div>
-        <p @contextmenu.prevent="$refs.menu.open">
-            Right click on me
-        </p>    
-    </div>
+  <div>
+    <p @contextmenu.prevent="$refs.menu.open">
+      Right click on me
+    </p>    
+  </div>
     
-    <vue-context ref="menu">
-        <li>
-            <a href="#" @click.prevent="onClick($event.target.innerText)">Option 1</a>
-        </li>
-        <li>
-            <a href="#" @click.prevent="onClick($event.target.innerText)">Option 2</a>
-        </li>
-    </vue-context>
+  <vue-context ref="menu">
+    <li>
+      <a href="#" @click.prevent="onClick($event.target.innerText)">Option 1</a>
+    </li>
+    <li>
+      <a href="#" @click.prevent="onClick($event.target.innerText)">Option 2</a>
+    </li>
+  </vue-context>
     
 </div>
 ```

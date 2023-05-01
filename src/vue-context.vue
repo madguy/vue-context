@@ -74,21 +74,14 @@ export default defineComponent({
     },
   },
 
-  data(): {
-    top: number;
-    left: number;
-    show: boolean;
-    data: any;
-    localItemSelector: string;
-    activeSubMenu: HTMLUListElement | null;
-  } {
+  data() {
     return {
       top: 0,
       left: 0,
       show: false,
-      data: {},
+      data: null as any,
       localItemSelector: '',
-      activeSubMenu: null,
+      activeSubMenu: null as HTMLUListElement | null,
     };
   },
 
@@ -198,7 +191,7 @@ export default defineComponent({
     },
 
     onClick() {
-      if (this.closeOnClick === false) {
+      if (!this.closeOnClick) {
         return;
       }
       this.close();
@@ -248,7 +241,7 @@ export default defineComponent({
       }
     },
 
-    open(event: MouseEvent, data: any = {}) {
+    open(event: MouseEvent, data: any = null) {
       this.data = data;
       this.show = true;
 
@@ -370,7 +363,7 @@ export default defineComponent({
     resetData() {
       this.top = 0;
       this.left = 0;
-      this.data = {};
+      this.data = null;
       this.show = false;
     },
 
